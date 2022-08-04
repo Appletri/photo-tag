@@ -1,0 +1,156 @@
+img {
+  width: 1326px;
+  z-index: -2;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+
+.target-box {
+  position: absolute;
+  z-index: 5;
+}
+
+.display {
+  transform: translateY(-110px);
+  color: white;
+  height: auto;
+  background-color: black;
+}
+
+.indicator {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: -50px;
+  border-radius: 50%;
+  border: 1px solid cyan;
+  background-color: rgba(130, 247, 255, 0.335);
+  box-shadow: 0px 0px 50px black;
+}
+
+.hidden {
+  display: none;
+}
+
+.choices {
+  position: absolute;
+  left: 55px;
+  top: -25px;
+  width: 150px;
+}
+
+.choices-left {
+  position: absolute;
+  left: -205px;
+  top: -25px;
+  width: 150px;
+}
+
+.choices :nth-child(1) {
+  animation: 'slideIn' .2s ease 0s 1;
+}
+
+.choices :nth-child(2) {
+  animation: 'slideIn' .4s ease 0s 1;
+}
+
+.choices :nth-child(3) {
+  animation: 'slideIn' .6s ease 0s 1;
+}
+
+.choices-left :nth-child(1) {
+  animation: 'slideInLeft' .2s ease 0s 1;
+}
+
+.choices-left :nth-child(2) {
+  animation: 'slideInLeft' .4s ease 0s 1;
+}
+
+.choices-left :nth-child(3) {
+  animation: 'slideInLeft' .6s ease 0s 1;
+}
+
+.choice {
+  background-color: rgb(82, 82, 82);
+  border: 1px solid cyan;
+  width: 100%;
+  color: lightgray;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .9rem;
+}
+
+.choice:hover {
+  background-color: rgb(255, 207, 47);
+  color: white;
+  user-select: none;
+  cursor: pointer;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+.menu {
+  color: white;
+}
+
+.menu-icon {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 2rem;
+  height: 2rem;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.menu-display {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100px;
+  background-color: black;
+  z-index: 3;
+  transition: ease-in-out 0.2s;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.hidden {
+  transform: translateY(-200px);
+}
+
+.found {
+  color: rgb(93, 93, 93);
+  text-decoration: line-through;
+}
