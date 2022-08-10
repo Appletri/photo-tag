@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/photo-tag/static/css/main.8adfbc67.css",
+    "main.js": "/photo-tag/static/js/main.b8e5ce2b.js",
+    "static/media/Waldo.jpg": "/photo-tag/static/media/Waldo.4b8cf4a330253e3f623e.jpg",
+    "index.html": "/photo-tag/index.html",
+    "main.8adfbc67.css.map": "/photo-tag/static/css/main.8adfbc67.css.map",
+    "main.b8e5ce2b.js.map": "/photo-tag/static/js/main.b8e5ce2b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8adfbc67.css",
+    "static/js/main.b8e5ce2b.js"
+  ]
+}
