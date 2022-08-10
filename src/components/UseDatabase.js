@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, setDoc, doc } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
 
@@ -22,12 +22,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app);
 
-async function Database() {
-  const cheatSheetCol = collection(db, 'targets');
+async function Database(lookup) {
+  const cheatSheetCol = collection(db, lookup);
   const cheatSheetSnap = await getDocs(cheatSheetCol);
   const cheatSheet = cheatSheetSnap.docs.map(doc => doc.data());
   return cheatSheet;
 }
 
+async function updateHS(newTime) {
+  await setDoc(doc(db, "highscores"), {
+    name: "another bot",
+    time: newTime
+  });
+}
 
-export default Database;
+
+export { Database, updateHS };

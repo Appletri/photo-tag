@@ -6,7 +6,6 @@ img {
   left: 0px;
 }
 
-
 .target-box {
   position: absolute;
   z-index: 5;
@@ -28,7 +27,7 @@ img {
   border-radius: 50%;
   border: 1px solid cyan;
   background-color: rgba(130, 247, 255, 0.335);
-  box-shadow: 0px 0px 50px black;
+  box-shadow: 0px 0px 50px black, 0px 0px 75px black;
 }
 
 .hidden {
@@ -122,8 +121,8 @@ img {
   position: fixed;
   top: 10px;
   right: 10px;
-  width: 2rem;
-  height: 2rem;
+  width: 30px;
+  height: 30px;
   background-color: black;
   display: flex;
   justify-content: center;
@@ -131,19 +130,43 @@ img {
   font-size: 2rem;
   cursor: pointer;
   z-index: 4;
+  border-radius: 10px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 .menu-display {
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 100px;
+  height: auto;
   background-color: black;
   z-index: 3;
   transition: ease-in-out 0.2s;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.menu-choices {
+  display: flex;
   justify-content: space-evenly;
   align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.timer {
+  font-size: 1.4rem;
+}
+
+.stop {
+  color: red;
 }
 
 .hidden {
@@ -154,3 +177,64 @@ img {
   color: rgb(93, 93, 93);
   text-decoration: line-through;
 }
+
+.notification {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  padding: 5px;
+  background-color: rgb(22, 190, 22);
+  color: white;
+  z-index: 10;
+  animation: 'slideInTop' .4s ease 0s 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification-hidden {
+  display: none;
+}
+
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.start-page {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.start-page-hidden {
+  display: none;
+}
+
+.highscores {
+  height: 50vh;
+  width: 250px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+

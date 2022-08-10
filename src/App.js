@@ -4,7 +4,8 @@ import './App.css';
 import Photo from './components/Photo';
 import TargetingBox from './components/TargetingBox';
 import Menu from './components/Menu';
-import Database from './components/UseDatabase';
+import { Database } from './components/UseDatabase';
+import StartScreen from './components/StartScreen';
 
 function App() {
   const [x, setX] = useState(0);
@@ -14,19 +15,37 @@ function App() {
   const [hidden, setHidden] = useState(true);
   const [choice, setChoice] = useState();
   const [targets, setTargets] = useState([
-    {
-      targetLocation: []
-    },
-    {
-      targetLocation: []
-    },
-    {
-      targetLocation: []
-    }
+    {targetLocation: []},
+    {targetLocation: []},
+    {targetLocation: []}
   ]);
   const [t1Located, setT1located] = useState(false);
   const [t2Located, setT2located] = useState(false);
   const [t3Located, setT3located] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(true);
+
+  const handleStart = () => {
+    setIsGameOver(false);
+    setT1located(false);
+    setT2located(false);
+    setT3located(false);
+    setChoice('');
+    //generate targets
+    (async () => {
+      const targetList = await Database('targets');
+      const newTargets = [];
+      for (let i = 0; i < 3; i += 1) {
+        let index = Math.floor(Math.random() * targetList.length);
+        newTargets.push(targetList[index]);
+        targetList.splice(index, 1);
+      }
+      setTargets(newTargets)
+    })();
+  }
+
+  const handleCorrect = () => {
+    setHidden(true)
+  }
 
   const handleT1 = () => {
     setT1located(true)
@@ -59,19 +78,12 @@ function App() {
     setChoice(e.target.innerHTML);
   }
 
-  // generate targets
+  //handles gameover
   useEffect(() => {
-    (async () => {
-      const targetList = await Database();
-      const newTargets = [];
-      for (let i = 0; i < 3; i += 1) {
-        let index = Math.floor(Math.random() * targetList.length);
-        newTargets.push(targetList[index]);
-        targetList.splice(index, 1);
-      }
-      setTargets(newTargets)
-    })();
-  }, []);
+    if (t1Located && t2Located && t3Located) {
+      setIsGameOver(true);
+    }
+  }, [t1Located, t2Located, t3Located]);
   
   //handle targetingbox location
   useEffect(() => {
@@ -93,14 +105,16 @@ function App() {
   }, [x, y, hidden, offsetY])
 
   return (
-    <div>
-      <Menu targets={targets} t1={t1Located} t2={t2Located} t3={t3Located}/>
-      <div className='app'>
+    <div className='app'>
+      <StartScreen start={handleStart} isGameOver={isGameOver}/>
+      <Menu targets={targets} t1={t1Located} t2={t2Located} t3={t3Located}isGameOver={isGameOver}/>
+      <div>
         <TargetingBox x={x} y={y} hidden={hidden} click={handleChoice}
         targets={targets}/>
       </div>
       <Photo x={x} y={y} click={handleClick} choice={choice} 
-      targets={targets} t1={handleT1} t2={handleT2} t3={handleT3}/>
+      targets={targets} t1={handleT1} t2={handleT2} t3={handleT3}
+      correct={handleCorrect}/>
 
     </div>
   );

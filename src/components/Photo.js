@@ -1,7 +1,13 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import image from '../assets/Waldo.jpg';
+import Notification from './Notification';
 
 function Photo(props) {
+  const [found, setFound] = useState(null);
+
+  const handleFound = () => {
+    setFound(null)
+  }
 
   useEffect(()=>{
     //loops through targets to see if one is a match
@@ -10,7 +16,9 @@ function Photo(props) {
          props.y >= (props.targets[i].targetLocation[1] - 50) && props.y <= (props.targets[i].targetLocation[1] + 50) &&
          props.choice === props.targets[i].targetName) {
            
-          console.log(`found ${props.targets[i].targetName}`);
+          setFound(`You Found ${props.targets[i].targetName}`);
+          props.correct();
+          
           if (i === 0) {
             props.t1()
           }
@@ -27,7 +35,10 @@ function Photo(props) {
 
 
   return (
-    <img onClick={props.click} src={image} alt='waldo'/>
+    <div>
+      <img onClick={props.click} src={image} alt='waldo'/>
+      <Notification found={found} update={handleFound} />
+    </div>
   )
 }
 
