@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
 
-function Timer({ isGameOver }) {
+function Timer(props) {
   const [timer, setTimer] = useState(0);
-  const [yourTime, setYourTime] = useState(0);
 
   useEffect(() => {
       let interval;
-      if (!isGameOver) {
+      if (!props.isGameOver) {
         // start interval/timer
         interval = setInterval(() => {
           setTimer((timer) => timer + 1);
         }, 1000);
-      } else if (isGameOver) {
+      } else if (props.isGameOver) {
         // stops/resets timer
         clearInterval(interval);
-        setYourTime(timer);
+        props.setYourTime(timer);
         setTimer(0);
       }
       
@@ -23,10 +22,10 @@ function Timer({ isGameOver }) {
         clearInterval(interval);
       };
 
-    }, [isGameOver] );
+    }, [props.isGameOver] );
 
-  return <div className={!isGameOver ? 'timer' : 'timer stop'}>
-    {timer === 0 ? formatTime(yourTime) : formatTime(timer)}</div>;
+  return <div className={!props.isGameOver ? 'timer' : 'timer stop'}>
+    {timer === 0 ? formatTime(props.yourTime) : formatTime(timer)}</div>;
 }
 
 function formatTime(time) {

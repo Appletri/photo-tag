@@ -17,7 +17,7 @@ function Menu(props) {
     <div className="menu">
       <div onClick={handleClick} className="menu-icon">{show ? 'x' : '+'}</div>
       <div className={show ? 'menu-display' : 'menu-display hidden'}>
-        <Timer isGameOver={props.isGameOver}/>
+        <Timer isGameOver={props.isGameOver} yourTime={props.yourTime} setYourTime={props.setYourTime}/>
         <div className="menu-choices">
           <div className={props.t1 ? 'found' : ''}>{props.targets[0].targetName}</div>
           <div className={props.t2 ? 'found' : ''}>{props.targets[1].targetName}</div>

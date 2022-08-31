@@ -49,27 +49,27 @@ img {
 }
 
 .choices :nth-child(1) {
-  animation: 'slideIn' .2s ease 0s 1;
+  animation: "slideIn" 0.2s ease 0s 1;
 }
 
 .choices :nth-child(2) {
-  animation: 'slideIn' .4s ease 0s 1;
+  animation: "slideIn" 0.4s ease 0s 1;
 }
 
 .choices :nth-child(3) {
-  animation: 'slideIn' .6s ease 0s 1;
+  animation: "slideIn" 0.6s ease 0s 1;
 }
 
 .choices-left :nth-child(1) {
-  animation: 'slideInLeft' .2s ease 0s 1;
+  animation: "slideInLeft" 0.2s ease 0s 1;
 }
 
 .choices-left :nth-child(2) {
-  animation: 'slideInLeft' .4s ease 0s 1;
+  animation: "slideInLeft" 0.4s ease 0s 1;
 }
 
 .choices-left :nth-child(3) {
-  animation: 'slideInLeft' .6s ease 0s 1;
+  animation: "slideInLeft" 0.6s ease 0s 1;
 }
 
 .choice {
@@ -81,7 +81,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .choice:hover {
@@ -186,7 +186,7 @@ img {
   background-color: rgb(22, 190, 22);
   color: white;
   z-index: 10;
-  animation: 'slideInTop' .4s ease 0s 1;
+  animation: "slideInTop" 0.4s ease 0s 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -224,12 +224,15 @@ img {
 }
 
 .highscores {
-  height: 50vh;
+  height: 55vh;
   width: 250px;
   background-color: white;
+  border-radius: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: scroll;
+  border: 5px solid rgb(224, 224, 224);
 }
 
 .score {
@@ -237,4 +240,3 @@ img {
   justify-content: space-between;
   width: 90%;
 }
-

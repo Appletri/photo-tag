@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, setDoc, doc } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
 
@@ -30,10 +30,18 @@ async function Database(lookup) {
 }
 
 async function updateHS(newTime) {
-  await setDoc(doc(db, "highscores"), {
-    name: "another bot",
+  const highscores = collection(db, 'highscores');
+  const data = {
+    name: prompt("Please enter your name", 'Your Name'),
     time: newTime
-  });
+  };
+
+  try {
+    await addDoc(highscores, data);
+  }
+  catch(error) {
+    console.error('error writing new hs to firebase database', error);
+  }
 }
 
 

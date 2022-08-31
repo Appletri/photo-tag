@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import './App.css';
 import Photo from './components/Photo';
@@ -13,7 +13,6 @@ function App() {
   const [offsetY, setOffsetY] = useState(0);
   const [offsetX, setOffsetX] = useState(0);
   const [hidden, setHidden] = useState(true);
-  const [choice, setChoice] = useState();
   const [targets, setTargets] = useState([
     {targetLocation: []},
     {targetLocation: []},
@@ -23,13 +22,15 @@ function App() {
   const [t2Located, setT2located] = useState(false);
   const [t3Located, setT3located] = useState(false);
   const [isGameOver, setIsGameOver] = useState(true);
+  const [yourTime, setYourTime] = useState(0);
+  const [found, setFound] = useState(null);
+
 
   const handleStart = () => {
     setIsGameOver(false);
     setT1located(false);
     setT2located(false);
     setT3located(false);
-    setChoice('');
     //generate targets
     (async () => {
       const targetList = await Database('targets');
@@ -43,21 +44,9 @@ function App() {
     })();
   }
 
-  const handleCorrect = () => {
-    setHidden(true)
+  const handleYourTime = (time) => {
+    setYourTime(time)
   }
-
-  const handleT1 = () => {
-    setT1located(true)
-  };
-
-  const handleT2 = () => {
-    setT2located(true)
-  };
-
-  const handleT3 = () => {
-    setT3located(true)
-  };
   
   const handleScroll = () => {
     setOffsetY(window.pageYOffset) 
@@ -74,8 +63,32 @@ function App() {
     }
   }
   
+  const handleFound = () => {
+    setFound(null)
+  }
+
   const handleChoice = (e) => {
-    setChoice(e.target.innerHTML);
+
+     //loops through targets to see if one is a match
+     for (let i = 0; i < 3; i += 1) {
+      if(x >= (targets[i].targetLocation[0] - 50) && x <= (targets[i].targetLocation[0] + 50) &&
+          y >= (targets[i].targetLocation[1] - 50) && y <= (targets[i].targetLocation[1] + 50) &&
+          e.target.innerHTML === targets[i].targetName) {
+            
+          setFound(`You Found ${targets[i].targetName}`);
+          setHidden(true)
+          
+          if (i === 0) {
+            setT1located(true)
+          }
+          if (i === 1) {
+            setT2located(true)
+          }
+          if (i === 2) {
+            setT3located(true)
+          }
+        }
+    }
   }
 
   //handles gameover
@@ -106,15 +119,13 @@ function App() {
 
   return (
     <div className='app'>
-      <StartScreen start={handleStart} isGameOver={isGameOver}/>
-      <Menu targets={targets} t1={t1Located} t2={t2Located} t3={t3Located}isGameOver={isGameOver}/>
+      <StartScreen start={handleStart} isGameOver={isGameOver} yourTime={yourTime} />
+      <Menu targets={targets} t1={t1Located} t2={t2Located} t3={t3Located}isGameOver={isGameOver} yourTime={yourTime} setYourTime={handleYourTime}/>
       <div>
         <TargetingBox x={x} y={y} hidden={hidden} click={handleChoice}
         targets={targets}/>
       </div>
-      <Photo x={x} y={y} click={handleClick} choice={choice} 
-      targets={targets} t1={handleT1} t2={handleT2} t3={handleT3}
-      correct={handleCorrect}/>
+      <Photo click={handleClick} found={found} handleFound={handleFound}/>
 
     </div>
   );
