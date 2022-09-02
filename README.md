@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# Photo Tag
+![incoming gif]()
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Links
+- [Try Photo Tag here!](https://appletri.github.io/photo-tag/)
 
-## Available Scripts
+- [Link to the Assignment](https://www.theodinproject.com/lessons/node-path-javascript-where-s-waldo-a-photo-tagging-app)
 
-In the project directory, you can run:
+## About
+### ReactJS & Firebase
+<hr>
+The core of this assignment is to utilize react with a firebase database.
 
-### `npm start`
+### Design
+The main design choice that I wanted to do as compared to others projects is to have multiple possible targets for the same picture. Other projects have the same targets for the same picture, which allows the player to nail a highscore the second time they play the picture. By having multiple targets for the same picture, I am creating a more competitive leaderboard and replayability for my picture.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Code
+<hr>
+#### Targeting Box
+I thought about this quite a bit. I wanted to create a pixel base targeting so that the user can scroll and zoom in/out of the photo while still having the core mechanics working. I start by creating the states that I will use for my mouse positioning and scroll positioning. After that I created the useEffect and function for handling the setState for the coordinates:
 
-### `npm test`
+```
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const [offsetY, setOffsetY] = useState(0);
+  const [offsetX, setOffsetX] = useState(0);
+  
+  const handleScroll = () => {
+    setOffsetY(window.pageYOffset) 
+    setOffsetX(window.pageXOffset)
+  };
+  
+   useEffect(() => {
+    
+    const update = (e) => {
+      if(hidden) {
+        setX(offsetX + e.x)
+        setY(offsetY + e.y)
+      }
+    }
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    window.addEventListener('click', update);
+    window.addEventListener('scroll', handleScroll);
 
-### `npm run build`
+    return () => {
+      window.removeEventListener('click', update);
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [x, y, hidden, offsetY])
+  
+```
+I pass these props through from the App.js to the TargetingBox.js. The Targeting Box is created and is hidden by a className. The box is updated and changes it's position everytime the user clicks on the photo.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The Targeting Box has an issue with the right side of screen. When clicking too close to the right, the box's choices get cut off by the right side. Too solve this issue, I created a helper function that gets the window's dimension and comparing the click value to the edge of the screen. If it is in cut-off range, the className will change and the choices will appear on the left side of the targeting box.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
