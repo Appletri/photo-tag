@@ -1,5 +1,5 @@
 # Photo Tag
-![incoming gif]()
+![](https://github.com/Appletri/Appletri/blob/main/assets/photo-tag.JPG)
 
 ## Links
 - [Try Photo Tag here!](https://appletri.github.io/photo-tag/)
